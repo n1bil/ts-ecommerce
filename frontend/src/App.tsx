@@ -1,5 +1,7 @@
-import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { sampleProducts } from "./data";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
     return (
@@ -21,19 +23,13 @@ function App() {
             </header>
             <main>
                 <Container className="mt-3">
-                    <Row>
-                        {sampleProducts.map((product) => (
-                            <Col key={product.slug} sm={6} md={4} lg={3}>
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="product-image"
-                                />
-                                <h2>{product.name}</h2>
-                                <p>${product.price}</p>
-                            </Col>
-                        ))}
-                    </Row>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<App />} />
+                            <Route index={true} element={<Homepage />} />
+                            <Route path="product/:slug" element={<ProductPage />} />
+                        </Routes>
+                    </BrowserRouter>
                 </Container>
             </main>
             <footer>
