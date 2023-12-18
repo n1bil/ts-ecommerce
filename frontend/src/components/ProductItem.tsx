@@ -7,7 +7,7 @@ interface ProductItemProps {
     product: Product;
 }
 
-const ProductItem = ({ product }: ProductItemProps): JSX.Element => {
+const ProductItem = ({ product }: ProductItemProps) => {
     return (
         <Card>
             <Link to={`/product/${product.slug}`}>
