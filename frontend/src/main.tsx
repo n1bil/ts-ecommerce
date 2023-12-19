@@ -5,11 +5,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App.tsx";
 import "./index.css";
 import axios from "axios";
+import { HelmetProvider } from "react-helmet-async";
 
-axios.defaults.baseURL=process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/';
+axios.defaults.baseURL = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "/";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <App />
+        <HelmetProvider>
+            <App />
+        </HelmetProvider>
     </React.StrictMode>
 );

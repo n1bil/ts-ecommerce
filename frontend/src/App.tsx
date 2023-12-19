@@ -23,13 +23,18 @@ function App() {
             </header>
             <main>
                 <Container className="mt-3">
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<App />} />
-                            <Route index={true} element={<Homepage />} />
-                            <Route path="product/:slug" element={<ProductPage />} />
-                        </Routes>
-                    </BrowserRouter>
+                    
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path="/" element={<App />} />
+                                <Route index={true} element={<Homepage />} />
+                                <Route
+                                    path="product/:slug"
+                                    element={<ProductPage />}
+                                />
+                            </Routes>
+                        </BrowserRouter>
+                    
                 </Container>
             </main>
             <footer>
