@@ -1,7 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Homepage from "./pages/Homepage";
-import ProductPage from "./pages/ProductPage";
+import { Outlet } from "react-router-dom";
 
 function App() {
     return (
@@ -23,18 +21,7 @@ function App() {
             </header>
             <main>
                 <Container className="mt-3">
-                    
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path="/" element={<App />} />
-                                <Route index={true} element={<Homepage />} />
-                                <Route
-                                    path="product/:slug"
-                                    element={<ProductPage />}
-                                />
-                            </Routes>
-                        </BrowserRouter>
-                    
+                    <Outlet />
                 </Container>
             </main>
             <footer>
