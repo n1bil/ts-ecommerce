@@ -13,7 +13,7 @@ userRouter.post('/signin', asyncHandler(async (req: Request, res: Response) => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
             res.json({
                 _id: user._id,
-                name: user.username,
+                username: user.username,
                 email: user.email,
                 isAdmin: user.isAdmin,
                 token: generateToken(user),
