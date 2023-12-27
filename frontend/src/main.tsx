@@ -13,6 +13,7 @@ import { StoreProvider } from "./Store.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import SigninPage from "./pages/SigninPage.tsx";
 import SignUpPage from "./pages/SignUpPage.tsx";
+import ShippingAddressPage from "./pages/ShippingAddressPage.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
             <Route path="cart" element={<CartPage />} />
             <Route path="signin" element={<SigninPage />} />
             <Route path="signup" element={<SignUpPage />} />
+            <Route path="shipping" element={<ShippingAddressPage />} />
         </Route>
     )
 );
