@@ -7,6 +7,7 @@ import { getError } from "../utils";
 import { ApiError } from "../types/ApiError";
 import { Button, Container, Form } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
+import { LoadingBox } from "../components/LoadingBox";
 
 const SigninPage = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const SigninPage = () => {
 
     const { state: { userInfo }, dispatch } = useContext(Store);
 
-    const { mutateAsync: signin } = useSignInMutation();
+    const { mutateAsync: signin, status } = useSignInMutation();
 
     const submitHandler = async (event: React.SyntheticEvent) => {
         event.preventDefault();
@@ -63,10 +64,10 @@ const SigninPage = () => {
                     />
                 </Form.Group>
                 <div className="mb-3">
-                    <Button type="submit">
+                    <Button disabled={status === 'pending'} type="submit">
                         Sign In
                     </Button>
-                    {/* {isLoading && <LoadingBox />} */}
+                    {status === 'pending' && <LoadingBox />}
                 </div>
                 <div className="mb-3">
                     New customer ?{' '}

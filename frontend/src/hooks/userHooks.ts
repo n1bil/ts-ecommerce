@@ -9,7 +9,6 @@ type UserRequestDto = {
 
 export const useSignInMutation = () => useMutation({
     mutationFn: async (user: UserRequestDto) => {
-        // (await apiClient.post<UserInfo>('api/users/signin', user)).data
         const response = await apiClient.post<UserInfo>('api/users/signin', user);
         return response.data;
     }
