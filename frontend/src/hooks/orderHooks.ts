@@ -13,7 +13,7 @@ type OrderRequest = {
     totalPrice: number;
 };
 
-type OrderArgument = {
+type OrderResponseDto = {
     message: string;
     order: Order;
 };
@@ -30,7 +30,24 @@ export const useGetOrderDetailsQuery = (id: string) => {
 
 export const useCreateOrderMutation = () => useMutation({
     mutationFn: async (order: OrderRequest) => {
-        const response = await apiClient.post<OrderArgument>("api/orders", order);
+        const response = await apiClient.post<OrderResponseDto>("api/orders", order);
+        return response.data;
+    },
+});
+
+export const useGetPaypalClientIdQuery = () => {
+    return useQuery({
+        queryKey: ['paypal-clientId'],
+        queryFn: async () => {
+            const response = await apiClient.get<{ clientId: string }>('/api/keys/paypal');
+            return response.data;
+        },
+    });
+};
+
+export const usePayOrderMutation = () => useMutation({
+    mutationFn: async (details: { orderId: string }) => {
+        const response = await apiClient.put<OrderResponseDto>(`api/orders/${details.orderId}/pay`, details);
         return response.data;
     },
 });
