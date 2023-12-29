@@ -6,6 +6,15 @@ import { Product } from '../models/productModel';
 
 export const orderRouter = express.Router();
 
+orderRouter.get('/:id', isAuth, asyncHandler(async (req: Request, res: Response) => {       // api/orders/:id
+    const order = await OrderModel.findById(req.params.id);
+    if (order) {
+        res.json(order);
+    } else {
+        res.status(404).json({ message: 'Order not found' });
+    }
+}));
+
 orderRouter.post('/', isAuth, asyncHandler(async (req: Request, res: Response) => {
     if (req.body.orderItems.length === 0) {
         res.status(400).json({ message: 'Cart is empty' });
