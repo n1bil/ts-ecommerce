@@ -42,33 +42,31 @@ export const OrderPage = () => {
             };
             loadPaypalScript();
         }
-    }, [paypalConfig]);
+    }, [paypalConfig, paypalDispatch]);
 
     const paypalButtonTransactionProps: PayPalButtonsComponentProps = {
         style: { layout: 'vertical' },
-        createOrder(data, actions) {
-            return actions.order.create({ 
-                purchase_units: [ 
-                    { 
-                        amount: { 
+        async createOrder(_data, actions) {
+            const orderId = await actions.order.create({
+                purchase_units: [
+                    {
+                        amount: {
                             value: order!.totalPrice.toString(),
-                        }, 
-                    }, 
-                ], 
-            }).then((orderId: string) => {
-                return orderId;
-            })
+                        },
+                    },
+                ],
+            });
+            return orderId;
         },
-        onApprove(data, actions) {
-            return actions.order!.capture().then(async (details) => {
-                try {
-                    await payOrder({ orderId: orderId!, ...details });
-                    refetch();
-                    toast.success('Order is paid successfully');
-                } catch (error) {
-                    toast.error(getError(error as ApiError));
-                }
-            })
+        async onApprove(_data, actions) {
+            const details = await actions.order!.capture();
+            try {
+                await payOrder({ orderId: orderId!, ...details });
+                refetch();
+                toast.success('Order is paid successfully');
+            } catch (error) {
+                toast.error(getError(error as ApiError));
+            }
         },
         onError: (err) => {
             toast.error(getError(err as ApiError));
