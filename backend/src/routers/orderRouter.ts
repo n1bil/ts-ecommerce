@@ -6,6 +6,11 @@ import { Product } from '../models/productModel';
 
 export const orderRouter = express.Router();
 
+orderRouter.get('/mine', isAuth, asyncHandler(async (req: Request, res: Response) => {
+    const orders = await OrderModel.find({ user: req.user._id });
+    res.json(orders);
+}));
+
 orderRouter.get('/:id', isAuth, asyncHandler(async (req: Request, res: Response) => {       // api/orders/:id
     const order = await OrderModel.findById(req.params.id);
     if (order) {
@@ -50,7 +55,7 @@ orderRouter.put('/:id/pay', isAuth, asyncHandler(async (req: Request, res: Respo
         };
         const updatedOrder = await order.save();
 
-        res.send({message: 'Order paid successfully', order: updatedOrder});
+        res.json({message: 'Order paid successfully', order: updatedOrder});
     } else {
         res.status(404).json({ message: 'Order not found' });
     }
